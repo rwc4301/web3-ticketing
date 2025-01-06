@@ -1,5 +1,8 @@
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
+
+import { default as getPort, portNumbers } from "./get-port.js";
+
 
 const app = express();
 app.use(cors());
@@ -9,5 +12,5 @@ app.get("/", (req, res) => {
     res.send("Server is running!");
 });
 
-const PORT = 5000;
+const PORT = await getPort({ port: portNumbers(5000, 6000) });
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

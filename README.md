@@ -11,12 +11,12 @@ Technology stack:
 - React
 - Solidity
 
-## Using this example
+## Getting started
 
 Run the following command:
 
 ```sh
-npx create-turbo@latest -e with-tailwind
+npm run dev
 ```
 
 ## What's inside?
