@@ -1,54 +1,45 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.28;
-
-// Uncomment this line to use console.log
-// import "hardhat/console.sol";
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract EventTicket is ERC721URIStorage, Ownable {
     uint256 public nextTokenId;
+    string public eventName;
+    uint256 public ticketPrice;
 
-    constructor() ERC721("EventTicket", "ETKT") {}
+    mapping(uint256 => bool) public isTicketUsed;
 
-    function mintTicket(address recipient, string memory metadataURI) public onlyOwner {
+    event TicketMinted(address indexed owner, uint256 tokenId, string metadataURI);
+    event TicketValidated(uint256 tokenId);
+
+    constructor(string memory _eventName, uint256 _ticketPrice) 
+        ERC721("EventTicket", "ETKT") 
+        Ownable(msg.sender)
+    {
+        eventName = _eventName;
+        ticketPrice = _ticketPrice;
+    }
+
+    function mintTicket(address recipient, string memory metadataURI) public payable {
+        require(msg.value >= ticketPrice, "Insufficient payment");
+
         uint256 tokenId = nextTokenId;
         _mint(recipient, tokenId);
         _setTokenURI(tokenId, metadataURI);
+
         nextTokenId++;
+
+        emit TicketMinted(recipient, tokenId, metadataURI);
     }
 
-    function validateTicket(address owner, uint256 tokenId) public view returns (bool) {
-        return ownerOf(tokenId) == owner;
+    function validateTicket(uint256 tokenId) public {
+        require(ownerOf(tokenId) == msg.sender, "You do not own this ticket");
+        require(!isTicketUsed[tokenId], "Ticket has already been used");
+
+        isTicketUsed[tokenId] = true;
+
+        emit TicketValidated(tokenId);
     }
 }
-
-// contract Lock {
-//     uint public unlockTime;
-//     address payable public owner;
-
-//     event Withdrawal(uint amount, uint when);
-
-//     constructor(uint _unlockTime) payable {
-//         require(
-//             block.timestamp < _unlockTime,
-//             "Unlock time should be in the future"
-//         );
-
-//         unlockTime = _unlockTime;
-//         owner = payable(msg.sender);
-//     }
-
-//     function withdraw() public {
-//         // Uncomment this line, and the import of "hardhat/console.sol", to print a log in your terminal
-//         // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
-
-//         require(block.timestamp >= unlockTime, "You can't withdraw yet");
-//         require(msg.sender == owner, "You aren't the owner");
-
-//         emit Withdrawal(address(this).balance, block.timestamp);
-
-//         owner.transfer(address(this).balance);
-//     }
-// }

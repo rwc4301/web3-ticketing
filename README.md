@@ -11,6 +11,10 @@ Technology stack:
 - React
 - Solidity
 
+## Installing
+
+We recommend using `nvm` to manage node installations, as hardhat only works with specific versions
+
 ## Getting started
 
 Run the following command:

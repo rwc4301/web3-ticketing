@@ -1,13 +1,17 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
+import * as dotenv from "dotenv";
 
 const config: HardhatUserConfig = {
   solidity: "0.8.28",
+  defaultNetwork: "hardhat",
   networks: {
-    goerli: {
-        url: "https://goerli.infura.io/v3/YOUR_INFURA_PROJECT_ID",
-        accounts: ["YOUR_PRIVATE_KEY"],
+    hardhat: {
     },
+    // sepolia: {
+    //   url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.API_KEY}`,
+    //   accounts: [process.env.PRIVATE_KEY] // Replace with your wallet private key
+    // },
   },
 };
 

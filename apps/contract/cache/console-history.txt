@@ -1,0 +1,24 @@
+const t2 = await contract.nextTokenId()
+t
+const t = await contract.nextTokenId
+await contract.nextTokenId
+totalMinted
+receipt.logs
+const event = receipt.events.find((e) => e.event === "TicketMinted");
+receipt
+const receipt = await tx.wait()
+const tx = await contract.mintTicket("0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199", "ipfs://metadata", { value: ethers.parseEther("0.05") });
+await contract.mintTicket("0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199", "ipfs://metadata", { value: ethers.parseEther("0.05") });
+});
+    console.log(`Ticket minted: Owner=${owner}, TokenID=${tokenId}, Metadata=${metadataURI}`);
+contract.on("TicketMinted", (owner, tokenId, metadataURI) => {
+const contract = new ethers.Contract(contractAddress, EventTicketABI.abi, provider);
+const totalMinted = await contract.nextTokenId();
+await contract.mintTicket("0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199", "ipfs://metadata", { value: ethers.parseEther("0.05") });
+await contract.mintTicket("0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199", "ipfs://metadata", { value: ethers.utils.parseEther("0.05") });
+contract = await EventTicket.attach("0x5FbDB2315678afecb367f032d93F642f64180aa3");
+EventTicket = await hre.ethers.getContractFactory("EventTicket");
+const EventTicket = await hre.ethers.getContractFactory("EventTicket");
+const hre = require("hardhat");
+const contract = await EventTicket.attach("0x5FbDB2315678afecb367f032d93F642f64180aa3");
+const EventTicket = await ethers.getContractFactory("EventTicket");
